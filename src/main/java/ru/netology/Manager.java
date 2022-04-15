@@ -2,6 +2,7 @@ package ru.netology;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @NoArgsConstructor
 public class Manager {
@@ -16,6 +17,10 @@ public class Manager {
         this.maxForLastFilms = maxForLastFilms;
     }
 
+    public Manager(Repository repo) {
+        this.repo = repo;
+    }
+
     public void addFilm(FilmData newFilm) {
         repo.save(newFilm);
     }
@@ -26,7 +31,6 @@ public class Manager {
 
     public FilmData[] findLast() {
         int resultLength;
-        //int moviesNumber = repo.getMoviesNumber();
         if (maxForLastFilms < movies.length) {
             resultLength = maxForLastFilms;
         } else {
