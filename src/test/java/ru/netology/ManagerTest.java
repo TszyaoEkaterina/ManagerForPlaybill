@@ -14,7 +14,6 @@ class ManagerTest {
         String[] expected = {"first"};
         assertArrayEquals(expected, actual);
     }
-
     @Test
     void shouldAddIfContains1Movie() {
         String[] movies = {"first"};
@@ -25,7 +24,6 @@ class ManagerTest {
         String[] expected = {"first", "second"};
         assertArrayEquals(expected, actual);
     }
-
     @Test
     void shouldAddIfContainsMoreMovies() {
         String[] movies = {"first", "second", "third"};
@@ -55,7 +53,6 @@ class ManagerTest {
         String[] expected = {"3", "2", "1"};
         assertArrayEquals(expected, actual);
     }
-
     @Test
     void shouldFindLastWithUnchangedLimitIfContainsMoviesMoreThanLimit() {
         String[] movies = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"};
@@ -65,7 +62,6 @@ class ManagerTest {
         String[] expected = {"11", "10", "9", "8", "7", "6", "5", "4", "3", "2"};
         assertArrayEquals(expected, actual);
     }
-
     @Test
     void shouldFindLastWithChangedLimitIfContainsMoviesLessThanLimit() {
         String[] movies = {"1", "2", "3", "4"};
