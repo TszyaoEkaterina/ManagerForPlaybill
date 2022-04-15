@@ -6,78 +6,90 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 class ManagerTest {
     Manager manager = new Manager();
+    Repository repo = new Repository();
+    FilmData first = new FilmData(1,"first","111");
+    FilmData second = new FilmData(2,"second","222");
+    FilmData third = new FilmData(3,"third","333");
+    FilmData forth = new FilmData(4,"forth","444");
+    FilmData fifth = new FilmData(5,"fifth","555");
+    FilmData sixth = new FilmData(6,"sixth","666");
+    FilmData seventh = new FilmData(7,"seventh","777");
+    FilmData eighth = new FilmData(8,"eighth","888");
+    FilmData ninth = new FilmData(9,"ninth","999");
+    FilmData tenth = new FilmData(10,"tenth","10");
+    FilmData eleventh = new FilmData(11,"eleventh","11");
 
     @Test
     void shouldAddIfNotContainsMovies() {
-        manager.addFilm("first");
-        String[] actual = manager.getMovies();
-        String[] expected = {"first"};
+        manager.addFilm(first);
+        FilmData[] actual = manager.findAll();
+        FilmData[] expected = {first};
         assertArrayEquals(expected, actual);
     }
     @Test
     void shouldAddIfContains1Movie() {
-        String[] movies = {"first"};
+        FilmData[] movies = {first};
         manager.setMovies(movies);
 
-        manager.addFilm("second");
-        String[] actual = manager.getMovies();
-        String[] expected = {"first", "second"};
+        manager.addFilm(second);
+        FilmData[] actual = manager.findAll();
+        FilmData[] expected = {first, second};
         assertArrayEquals(expected, actual);
     }
     @Test
     void shouldAddIfContainsMoreMovies() {
-        String[] movies = {"first", "second", "third"};
+        FilmData[] movies = {first, second, third};
         manager.setMovies(movies);
 
-        manager.addFilm("forth");
-        String[] actual = manager.getMovies();
-        String[] expected = {"first", "second", "third", "forth"};
+        manager.addFilm(forth);
+        FilmData[] actual = manager.findAll();
+        FilmData[] expected = {first, second, third, forth};
         assertArrayEquals(expected, actual);
     }
 
     @Test
     void shouldFindAllIfContainsMovies() {
-        String[] movies = {"first", "second", "third"};
+        FilmData[] movies = {first, second, third};
         manager.setMovies(movies);
-        String[] actual = manager.findAll();
-        String[] expected = {"first", "second", "third"};
+        FilmData[] actual = manager.findAll();
+        FilmData[] expected = {first, second, third};
         assertArrayEquals(expected, actual);
     }
 
     @Test
     void shouldFindLastWithUnchangedLimitIfContainsMoviesLessThanLimit() {
-        String[] movies = {"1", "2", "3"};
+        FilmData[] movies = {first, second, third};
         manager.setMovies(movies);
 
-        String[] actual = manager.findLast();
-        String[] expected = {"3", "2", "1"};
+        FilmData[] actual = manager.findLast();
+        FilmData[] expected = {third,second,first};
         assertArrayEquals(expected, actual);
     }
     @Test
     void shouldFindLastWithUnchangedLimitIfContainsMoviesMoreThanLimit() {
-        String[] movies = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"};
+        FilmData[] movies = {first, second, third, forth,fifth,sixth,seventh,eighth,ninth,tenth,eleventh};
         manager.setMovies(movies);
 
-        String[] actual = manager.findLast();
-        String[] expected = {"11", "10", "9", "8", "7", "6", "5", "4", "3", "2"};
+        FilmData[] actual = manager.findLast();
+        FilmData[] expected = {eleventh,tenth,ninth,eighth,seventh, sixth,fifth,forth,third,second};
         assertArrayEquals(expected, actual);
     }
     @Test
     void shouldFindLastWithChangedLimitIfContainsMoviesLessThanLimit() {
-        String[] movies = {"1", "2", "3", "4"};
+        FilmData[] movies = {first, second, third, forth};
         manager.setMovies(movies);
         manager.setMaxForLastFilms(5);
-        String[] actual = manager.findLast();
-        String[] expected = {"4", "3", "2","1"};
+        FilmData[] actual = manager.findLast();
+        FilmData[] expected = {forth,third,second,first};
         assertArrayEquals(expected, actual);
     }
     @Test
     void shouldFindLastWithChangedLimitIfContainsMoviesMoreThanLimit() {
-        String[] movies = {"1", "2", "3", "4","5", "6", "7", "8"};
+        FilmData[] movies = {first, second, third, forth,fifth,sixth,seventh,eighth};
         manager.setMovies(movies);
         manager.setMaxForLastFilms(5);
-        String[] actual = manager.findLast();
-        String[] expected = {"8", "7", "6", "5","4"};
+        FilmData[] actual = manager.findLast();
+        FilmData[] expected = {eighth,seventh, sixth,fifth,forth};
         assertArrayEquals(expected, actual);
     }
 }
