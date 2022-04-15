@@ -4,32 +4,35 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-@Data
 public class Manager {
-    private String[] movies = new String[0];
     private int maxForLastFilms = 10;
-
-    public void addFilm(String newFilm) {
-        String[] tmp = new String[movies.length + 1];
-        for (int i = 0; i < movies.length; i++) {
-            tmp[i] = (movies[i]);
-        }
-        tmp[tmp.length - 1] = newFilm;
-        movies = tmp;
+    private Repository repo = new Repository();
+    private FilmData[] movies = findAll();
+    public void setMovies(FilmData[] movies) {
+        this.movies = movies;
+        repo.setMovies(movies);
+    }
+    public void setMaxForLastFilms(int maxForLastFilms) {
+        this.maxForLastFilms = maxForLastFilms;
     }
 
-    public String[] findAll() {
-        return movies;
+    public void addFilm(FilmData newFilm) {
+        repo.save(newFilm);
     }
 
-    public String[] findLast() {
+    public FilmData[] findAll() {
+        return repo.findAll();
+    }
+
+    public FilmData[] findLast() {
         int resultLength;
+        //int moviesNumber = repo.getMoviesNumber();
         if (maxForLastFilms < movies.length) {
             resultLength = maxForLastFilms;
         } else {
             resultLength = movies.length;
         }
-        String[] lastMovies = new String[resultLength];
+        FilmData[] lastMovies = new FilmData[resultLength];
         for (int i = 0; i < resultLength; i++) {
             int index = movies.length - 1 - i;
             lastMovies[i] = movies [index];
